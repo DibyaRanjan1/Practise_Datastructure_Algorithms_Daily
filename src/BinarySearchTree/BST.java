@@ -29,7 +29,11 @@ public class BST {
         boolean isKeyPresetIterationNegative =  SearchItemInBSTUsingIteration(root,800);
         System.out.println(isKeyPresetIterationNegative);
 
-       Node newRoot = InsertIntoBinaryTreeRecursion(root,90);
+      // Node newRoot = InsertIntoBinaryTreeRecursion(root,90);
+
+     // Node newRootAfterDelete =  DeleteNode(root,15);
+
+     Node floorResult = FindFloor(root,17);
 
     }
 
@@ -82,7 +86,7 @@ public class BST {
         return root;
     }
 
-    public static Node InsertIntoBinaryTreeInteration(Node root,int key){
+    public static Node InsertIntoBinaryTreeIteration(Node root,int key){
        Node newNode = new Node(key);
        Node curr = root;
        Node parent = null;
@@ -111,6 +115,59 @@ public class BST {
        }
       return root;
 
+    }
+
+    public static Node DeleteNode(Node root,int key){
+        if(root ==null) return null;
+        if(root.key > key) {
+            root.left = DeleteNode(root.left, key);
+        }
+        else if(root.key < key){
+            root.right = DeleteNode(root.right,key);
+        }
+        else{
+            if(root.left ==null) {
+                return root.right;
+            }
+            else if(root.right ==null){
+                return root.left;
+            }
+            else{
+             Node successor =  GetSuccessor(root);
+             root.key = successor.key;
+            root.right = DeleteNode(root.right,successor.key);
+            }
+     return root;
+        }
+        return root;
+    }
+
+    public static Node FindFloor(Node root,int floorKey){
+        Node temp =null;
+        if(root ==null){
+            return null;
+        }
+        while(root!=null){
+            if(root.key > floorKey){
+                temp = root;
+                root = root.left;
+            } else if (root.key < floorKey) {
+                temp = root;
+                root = root.right;
+            }
+            else {
+                return root;
+            }
+        }
+        return temp;
+    }
+    private static Node GetSuccessor(Node node){
+        Node temp = node.right;
+
+        while(temp!=null && temp.left!=null){
+            temp = temp.left;
+        }
+        return temp;
     }
 }
 
