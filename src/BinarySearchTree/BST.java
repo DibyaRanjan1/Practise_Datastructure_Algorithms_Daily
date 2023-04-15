@@ -35,6 +35,8 @@ public class BST {
 
      Node floorResult = FindFloor(root,17);
 
+       Node celingResult = FindCeiling(root,79);
+        System.out.println(celingResult.key);
     }
 
     public static boolean SearchItemInBSTUsingRecursion(Node node, int key){
@@ -160,6 +162,27 @@ public class BST {
             }
         }
         return temp;
+    }
+
+    public static Node FindCeiling(Node root,int ceilKey){
+        Node result = null;
+
+        if(root.key == ceilKey){
+            return root;
+        }
+
+        while(root!=null){
+            if(root.key > ceilKey){
+                result = root;
+                root = root.left;
+            }
+            else if(root.key < ceilKey){
+
+                root = root.right;
+            }
+        }
+        return result;
+
     }
     private static Node GetSuccessor(Node node){
         Node temp = node.right;
