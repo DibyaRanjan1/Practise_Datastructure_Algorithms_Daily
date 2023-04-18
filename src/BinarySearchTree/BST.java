@@ -1,6 +1,8 @@
 package BinarySearchTree;
 
 public class BST {
+
+
     public static void main(String[] args) {
 
         Node root = new Node(15);
@@ -9,6 +11,7 @@ public class BST {
         root.right = new Node(20);
 
         root.left.left = new Node(3);
+      
 
         root.right.left = new Node(18);
         root.right.left.left = new Node(16);
@@ -37,6 +40,8 @@ public class BST {
 
        Node celingResult = FindCeiling(root,79);
         System.out.println(celingResult.key);
+
+        System.out.println( CheckBST(root));
     }
 
     public static boolean SearchItemInBSTUsingRecursion(Node node, int key){
@@ -191,6 +196,23 @@ public class BST {
             temp = temp.left;
         }
         return temp;
+    }
+
+    // Check a binary tree is binary search tree or not
+    static int prevValue= Integer.MIN_VALUE;
+    public static boolean CheckBST(Node root){
+        if(root ==null) return true;
+
+       Boolean result =  CheckBST(root.left);
+       if (!result) return false;
+
+        if(root.key <=prevValue) return false;
+
+       prevValue = root.key;
+
+       Boolean rResult = CheckBST(root.right);
+       if (!rResult) return false;
+return true;
     }
 }
 
