@@ -12,9 +12,13 @@ public class PrintLeftOfBinaryTree {
 
         printLeftOfBinaryTree.node.right = new Node(30);
         printLeftOfBinaryTree.node.right.right = new Node(70);
+        printLeftOfBinaryTree.node.right.right.right = new Node(80);
 
         Node tempNode = printLeftOfBinaryTree.node;
-        printLeftOfBinaryTree.PrintLeftBinaryTree(tempNode,true);
+       // printLeftOfBinaryTree.PrintLeftBinaryTree(tempNode,true);
+
+      boolean isBalancedTree =  printLeftOfBinaryTree.CheckBalancedTree(tempNode,1);
+        System.out.println(isBalancedTree);
     }
 
     public void PrintLeftBinaryTree(Node root, boolean isLeft){
@@ -24,5 +28,21 @@ public class PrintLeftOfBinaryTree {
 
         PrintLeftBinaryTree(root.left,true);
         PrintLeftBinaryTree(root.right,false);
+    }
+
+    private boolean CheckBalancedTree(Node root, int level){
+        if(root == null) return true;
+
+        if(root.left !=null)
+        CheckBalancedTree(root.left,level +1);
+
+        int leftLevelCount = level;
+
+        if(root.right !=null)
+        CheckBalancedTree(root.right,level +1);
+
+        int rightLevelCount = level;
+        if(Math.abs(leftLevelCount - rightLevelCount)  >=2) return false;
+        return true;
     }
 }
