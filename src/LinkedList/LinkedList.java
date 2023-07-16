@@ -1,6 +1,7 @@
 package LinkedList;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
@@ -12,14 +13,24 @@ public class LinkedList {
         Node head = new Node(1);
         head.next = new Node(2);
         head.next.next = new Node(3);
+
         head.next.next.next = new Node(4);
-        head.next.next.next.next = new Node(9);
+
+        head.next.next.next.next = new Node(5);
+
+        Node heade1 = new Node(4);
+        heade1.next = new Node(5);
+
+        //addTwoLists(head,heade1);
+
+        rotate(heade1,1);
 
 
-        Node head1 = new Node(11);
-        head1.next = new Node(12);
-        head1.next.next = head.next.next.next;
-
+//        Node head1 = new Node(11);
+//        head1.next = new Node(12);
+//        head1.next.next = head.next.next.next;
+        //ReverseLinkedList1(head);
+        //Ispalindrom(head);
 
 
      // Node newLinkedList =   RemoveDuplicate(head);
@@ -32,7 +43,7 @@ public class LinkedList {
 
        // addOne(head);
 
-        intersectPoint(head,head1);
+        // intersectPoint(head,head1);
     }
 
     public static boolean detectLoop(Node head){
@@ -345,6 +356,171 @@ public static   Node RemoveDuplicate(Node head){
         return -1;
     }
 
+    public static boolean Ispalindrom(Node head){
+        int size = 0;
+        int tempCount=0;
+        int tempCount1 = 0;
+        Node temp = head;
+        Node secondHalfRef = head;
+
+        while(temp !=null){
+            temp = temp.next;
+            ++size;
+        }
+        tempCount = size/2;
+        tempCount1 = tempCount;
+
+        while (tempCount>0){
+             secondHalfRef = secondHalfRef.next;
+             --tempCount;
+        }
+       if(size%2==1){
+           secondHalfRef = secondHalfRef.next;
+        }
+
+
+        secondHalfRef = ReverseLinkedList1(secondHalfRef);
+
+        while (tempCount1 >0 && secondHalfRef!=null){
+
+            if(head.data != secondHalfRef.data){
+                return false;
+            }
+            head  =head.next;
+            secondHalfRef = secondHalfRef.next;
+            --tempCount1;
+        }
+        return true;
+    }
+
+    public static Node ReverseLinkedList1(Node head){
+        Node current = head;
+        Node next = null;
+        Node prev = null;
+
+        while(current!=null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+        return head;
+    }
+
+    static Node addTwoLists(Node first, Node second){
+        // code here
+        // return head of sum list
+//390
+           first = ReverseLinkedList1(first);
+           second = ReverseLinkedList1(second);
+           int carry=0;
+           Node resultNode = null;
+           int temp = 0;
+           Node prev = null;
+           int result =0;
+
+           while (first!=null && second!=null){
+                 if(carry ==1){
+                      result =  first.data + second.data + 1;
+                 }
+                 else{
+                     result = first.data + second.data;
+                 }
+
+
+               if(result>=10){
+                   carry = 1;
+                    temp = result%10;
+
+               }else{
+                   carry = 0;
+                   temp = result;
+               }
+
+               resultNode = new Node(temp);
+               resultNode.next = prev;
+               prev = resultNode;
+
+               first = first.next;
+               second = second.next;
+           }
+
+           Node tempNode = null;
+           if(first==null){
+               tempNode = second;
+           }else {
+               tempNode = first;
+           }
+
+           while(tempNode!=null){
+               if(carry ==1){
+                   result =  tempNode.data + 1;
+               }
+               else{
+                   result = tempNode.data;
+               }
+
+
+               if(result>=10){
+                   carry = 1;
+                   temp = result%10;
+
+               }else{
+                   carry = 0;
+                   temp = result;
+               }
+
+               resultNode = new Node(temp);
+               resultNode.next = prev;
+               prev = resultNode;
+
+               tempNode = tempNode.next;
+           }
+
+           if(carry ==1){
+               resultNode = new Node(1);
+               resultNode.next = prev;
+           }
+          return resultNode ;
+    }
+
+
+    public static Node rotate(Node head, int k) {
+        // add code here
+
+        Node temp = head;
+        Node prev = null;
+
+        while(k >0 && temp!=null){
+            --k;
+            prev = temp;
+            temp = temp.next;
+        }
+        if(temp == null){
+            return head;
+        }
+
+        prev.next = null;
+
+        Node current = temp;
+        Node cc = null;
+
+        while(current.next!=null){
+            cc = current.next;
+            current = current.next;
+
+        }
+if(cc!=null){
+    cc.next = head;
+}else {
+    current.next = head;
+}
+
+
+head = temp;
+        return head;
+    }
 }
 
 
