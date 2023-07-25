@@ -18,12 +18,20 @@ public class LinkedList {
 
         head.next.next.next.next = new Node(5);
 
-        Node heade1 = new Node(4);
-        heade1.next = new Node(5);
+        head.next.next.next.next.next = new Node(6);
+
+        deleteNode(head,6);
+
+        //Node head1 = new Node(9);
+
 
         //addTwoLists(head,heade1);
 
-        rotate(heade1,1);
+       // rotate(heade1,1);
+
+        //addOne1(head1);
+
+        //reverse(head,3);
 
 
 //        Node head1 = new Node(11);
@@ -519,6 +527,113 @@ if(cc!=null){
 
 
 head = temp;
+        return head;
+    }
+
+    public static Node addOne1(Node head)
+    {
+       head = ReverseLinkedList1(head);
+       int carry=1;
+
+       Node temp = head;
+       Node current = null;
+
+
+       while ( temp!=null || carry>0){
+           int result=0;
+
+        if(temp!=null){
+            result = temp.data + carry;
+
+        }else {
+            Node newNode = new Node(1);
+            current.next = newNode;
+            break;
+        }
+
+         int newVal = result%10;
+         temp.data = newVal;
+
+         if(result ==10){
+             carry = 1;
+         }else {
+             carry = result/10;
+         }
+
+
+         if(temp!=null){
+            current = temp;
+             temp = temp.next;
+         }
+       }
+
+        head = ReverseLinkedList1(head);
+       return head;
+    }
+
+    public static Node reverse(Node head, int k)
+    {
+        Node current = head;
+        Node prev = null;
+        Node next = null;
+
+        int count = 0;
+
+        while (count<k && current!=null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+
+            ++count;
+        }
+
+        if(current!=null ){
+            Node check = head.next;
+            head.next = reverse(current,k);
+        }
+        return prev;
+    }
+
+    public static Node reverse1(Node node, int k){
+
+        Node current = node;
+        Node prev = null;
+
+        while (k>0){
+            --k;
+            prev = current;
+            current = current.next;
+        }
+
+        prev.next = null;
+        node = ReverseLinkedList1(node);
+
+        while(prev.next!=null){
+            prev = prev.next;
+        }
+
+        prev.next = current;
+        return node;
+    }
+
+    public static Node deleteNode(Node head, int x)
+    {
+        Node current = head;
+        Node next = null;
+        Node prev = null;
+
+        if(x==1){
+            head = head.next;
+        }
+        while ((x-1)>0){
+            next = current.next;
+            prev = current;
+            current = next;
+
+            --x;
+        }
+        prev.next = next.next;
         return head;
     }
 }
