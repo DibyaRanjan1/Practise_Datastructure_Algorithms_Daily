@@ -16,6 +16,10 @@ public class Graph {
         adjList.get(u).add(v);
     }
 
+    public void addEdgeDirectedWithWeight(ArrayList<ArrayList<AdjListNode>> adj,int u,int v,int weight){
+      adj.get(u).add(new AdjListNode(v,weight));
+    }
+
   public void bfs(ArrayList<ArrayList<Integer>> adjList,int v){
 
       boolean[] visited = new boolean[v+1];
