@@ -1,9 +1,9 @@
 package Tree.MediumProblems;
 
 public class Node {
-    int data;
-    Node left,right;
-    Node(int d)
+    public int data;
+    public Node left,right;
+    public Node(int d)
     {
         data=d;
         left=right=null;
