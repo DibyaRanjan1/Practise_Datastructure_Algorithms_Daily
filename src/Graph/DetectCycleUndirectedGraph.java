@@ -30,8 +30,8 @@ public class DetectCycleUndirectedGraph {
 
 
 
-        //isCycleUsingBFS(4,adj);
-        isCycleUsingDFS(4,adj);
+        isCycleUsingBFS(4,adj);
+        //isCycleUsingDFS(4,adj);
     }
 
     public static boolean isCycleUsingBFS(int V, ArrayList<ArrayList<Integer>> adj){
