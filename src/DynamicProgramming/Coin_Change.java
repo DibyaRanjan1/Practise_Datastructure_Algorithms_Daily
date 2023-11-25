@@ -70,9 +70,6 @@ public class Coin_Change {
         return cc;
     }
 
-    public int coinchange_again(int[] coins,int amount){
-
-    }
 
     private int dp_again(int index,int[] coins, int amount){
 
