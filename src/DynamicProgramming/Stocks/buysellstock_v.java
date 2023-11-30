@@ -34,7 +34,7 @@ public class buysellstock_v {
             }
 
         }else {
-            profit =  Math.max(prices[index] + maxprofit_dp(1,index+,prices,dp,true),
+            profit =  Math.max(prices[index] + maxprofit_dp(1,index,prices,dp,true),
                     maxprofit_dp(0,index+1,prices,dp,false));
         }
 
